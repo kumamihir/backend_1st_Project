@@ -64,7 +64,7 @@ userschema.pre("save",async function (next){
     if(!this.isModified("password")){
         return next();
     }
-    this.password = bcrypt.hash(this.password,12)
+    this.password = await bcrypt.hash(this.password,12)
     next()
 }) // imp - in this we dont wrtie arrow func bcose arrow func ke pass this ka refernce nhi hota so we write normak fucntion
 
