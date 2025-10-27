@@ -1,8 +1,7 @@
-import {v2} from "cloudinary"
-import fs from "fs"
+import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
 
-
-    cloudinary.config({ 
+cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_NAME, 
   api_key: process.env.CLOUDINARY_API_KEY, 
   api_secret: process.env.CLOUDINARY_API_SECRET
@@ -10,28 +9,25 @@ import fs from "fs"
 
 const uploadoncloudinary = async (LocalFilePath) => {
   try {
-    if(!LocalFilePath){
+    if (!LocalFilePath) {
       return null;
     }
-    //uplad the file
-    const response = await cloudinary.v2.uploader.upload(LocalFilePath,{
-      resource_type : "auto"
-    })
-    //file has been uplaoded succesfully
-    console.log("file is uploaded",response.url)
+
+    // upload the file
+    const response = await cloudinary.uploader.upload(LocalFilePath, {
+      resource_type: "auto"
+    });
+
+    // file has been uploaded successfully
+    console.log("file is uploaded", response.url);
+    fs.unlinkSync(LocalFilePath)
     return response;
+
   } catch (error) {
-    fs.unlinkSync(LocalFilePath) // remove the locally saved temp files as the upload opr got failed
+    // remove the locally saved temp file if upload failed
+    fs.unlinkSync(LocalFilePath);
     return null;
   }
-}
+};
 
-
-export {uploadoncloudinary}
-
-
-// cloudinary.v2.uploader.upload("",{
-//   public_id:"oly_flag"
-// },
-//   function(error,result) {console.log(result)}
-// )
+export { uploadoncloudinary };

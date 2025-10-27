@@ -36,7 +36,7 @@ const userschema = new Schema(
         },
 
          password:{
-            type:string,
+            type:String,
             required:[true,"Password is required nigga"],
             unique:true,
             // lowercase:true,
@@ -51,7 +51,7 @@ const userschema = new Schema(
          ],
 
          refreshtokens:{
-            type:string
+            type:String
          }
 
 
